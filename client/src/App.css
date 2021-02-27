@@ -1,8 +1,36 @@
-.App {
+body{
+  margin: 0px;
+}
+.Home{
+  text-align: center;
+}
+
+.About{
+  text-align: center;
+}
+
+.Login {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.navigation{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background-color: rgb(73, 79, 82);
+  color: white;
+}
+
+.nav-links{
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
 }
 
 .information {
@@ -17,12 +45,12 @@ align-items: center;
   width: 200px;
   height: 20px;
 }
- button {
+ .buttonLogin {
   margin-top: 10px;
   width: 100px;
   height: 25px;
 }
- button:hover{
+ .buttonLogin:hover{
   cursor: pointer;
 }
 
