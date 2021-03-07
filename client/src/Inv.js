@@ -1,18 +1,16 @@
 import React from 'react';
 import './App.css';
 
-function About(){
+function Inv(){
         return (
-            
             <div className="textcenter">
 
-                <h1>About Page!</h1>
-            
-            
+                <h1>Inventory Page!</h1>
+
             </div>
 
         );
 
 }
 
-export default About;
+export default Inv;

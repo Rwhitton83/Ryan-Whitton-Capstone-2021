@@ -1,6 +1,10 @@
 import "./App.css";
 import Axios from "axios";
 import { useState } from "react";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { spacing } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
 
 
 function Login() {
@@ -26,38 +30,35 @@ function Login() {
 
   return (
     <div className="Login"> 
-      <div className="information">
 
-      <label>Username: </label>
-      <input type="text" 
-       onChange={(event) => { 
+
+
+<Box p={3}>
+
+      <Box pt={1}><TextField id="outlined-basic" label="Username" variant="filled" onChange={(event) => { 
          setUsername(event.target.value);
-       }}
-       /> 
-      
-      <label>Password: </label>
-      <input type="text"        
-      onChange={(event) => { 
+       }}></TextField></Box>
+
+       <br></br>
+
+      <TextField id="outlined-basic" label="Password" variant="filled" onChange={(event) => { 
          setPassword(event.target.value);
-       }}
-       /> 
+       }}></TextField>
 
-      <button onClick={addUser}>Submit</button>
-      </div>
+</Box>
 
-      <hr
-        style={{
-            width: 1000
-        }}
-    />
-      <div>
-      <button onClick={getUser}>Show Users</button>
+
+<Box textAlign="center">
+
+      <Box p={1}><Button variant="outlined" size="small" color="secondary" onClick={addUser}>Submit</Button></Box>
+      <Button variant="outlined" size="small" color="secondary" onClick={getUser}>Show Users</Button>
         {UserList.map((val, key) => {
           return <div>
             <pre>{val.UserName} {val.UserPassword}</pre>
             </div>
         })}
-      </div>
+      
+</Box>
       
     </div>
   );
