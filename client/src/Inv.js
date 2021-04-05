@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import { useState } from "react";
-import EMPTY from './img/EMPTY.png';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -14,32 +12,77 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import equipment from './equipment.js';
-import { Divider } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
+import EMPTY from './img/EMPTY.png';
+import Axios from "axios";
 
 function Inv(){
+  Axios.defaults.withCredentials = true;
+
     const [pwepSelect, setpwepSelect] = useState(false);
     const [pwepIMG, setpwepIMG] = useState(EMPTY);
-    const [pwepID, setpwepID] = useState();
+    const [pwepID, setpwepID] = useState("0");
 
     const [swepSelect, setswepSelect] = useState(false);
     const [swepIMG, setswepIMG] = useState(EMPTY);
-    const [swepID, setswepID] = useState();
+    const [swepID, setswepID] = useState("0");
 
     const [hitemSelect, sethitemSelect] = useState(false);
     const [hitemIMG, sethitemIMG] = useState(EMPTY);
-    const [hitemID, sethitemID] = useState();
+    const [hitemID, sethitemID] = useState("0");
 
     const [bitemSelect, setbitemSelect] = useState(false);
     const [bitemIMG, setbitemIMG] = useState(EMPTY);
-    const [bitemID, setbitemID] = useState();
+    const [bitemID, setbitemID] = useState("0");
 
     const [aitemSelect, setaitemSelect] = useState(false);
     const [aitemIMG, setaitemIMG] = useState(EMPTY);
-    const [aitemID, setaitemID] = useState();
+    const [aitemID, setaitemID] = useState("0");
 
     const [litemSelect, setlitemSelect] = useState(false);
     const [litemIMG, setlitemIMG] = useState(EMPTY);
-    const [litemID, setlitemID] = useState();
+    const [litemID, setlitemID] = useState("0");
+
+    const [InvList, setInvList] = useState([]); // FOR RESPONSE
+
+    useEffect(()=>{
+      Axios.get("http://localhost:3001/login").then((response) => {
+          console.log(response)
+          if(response.data.LoggedIn === true)
+          {
+            setpwepID(response.data.user[0].PrimaryWep)
+            setpwepIMG(equipment[response.data.user[0].PrimaryWep].img)
+
+            setswepID(response.data.user[0].SecondaryWep)
+            setswepIMG(equipment[response.data.user[0].SecondaryWep].img)
+
+            sethitemID(response.data.user[0].HeadSlot)
+            sethitemIMG(equipment[response.data.user[0].HeadSlot].img)
+
+            setbitemID(response.data.user[0].BodySlot)
+            setbitemIMG(equipment[response.data.user[0].BodySlot].img)
+
+            setaitemID(response.data.user[0].ArmSlot)
+            setaitemIMG(equipment[response.data.user[0].ArmSlot].img)
+
+            setlitemID(response.data.user[0].LegSlot)
+            setlitemIMG(equipment[response.data.user[0].LegSlot].img)
+          }
+      });
+  }, [])
+
+    const setItems = () => {
+      Axios.post("http://localhost:3001/items", {
+      pwepID: pwepID, 
+      swepID: swepID,
+      hitemID: hitemID,
+      bitemID: bitemID,
+      aitemID: aitemID,
+      litemID: litemID,
+    }).then( res => {
+      console.log(res)
+    })
+    };
 
     function Select(id){
 
@@ -367,6 +410,7 @@ function Inv(){
         </TableBody>
       </Table>
     </TableContainer>
+    <Button onClick={() => {setItems();}}>Submit</Button>
             </div>
         );
 

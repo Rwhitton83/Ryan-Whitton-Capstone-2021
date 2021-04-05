@@ -4,36 +4,30 @@ import { useState } from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import { Divider, Link, Paper } from "@material-ui/core";
 
 
 function Login() {
 
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
-  const [UserList, setUserList] = useState([]);
 
-  const addUser = () => {
-    Axios.post("http://localhost:3001/create", {
+  const checkUser = () => {
+    Axios.post("http://localhost:3001/login", {
       Username: Username, 
       Password: Password,
-    }).then( () => {
-      console.log("success");
-    });
+    }).then(res => {
+      var resp = document.getElementById("response");
+      resp.innerHTML = res.data.message;
+    })
   };
 
-  const getUser = () => {
-    Axios.get("http://localhost:3001/users").then((response) => {
-      setUserList(response.data);
-    });
-  };
 
   return (
     <div className="Login"> 
-
-
-
-<Box p={3}>
-
+<Box p={3} component={Paper}>
+      <h3 style ={{textAlign:"center"}}>Login Below</h3>
+      <Divider></Divider>
       <Box pt={1}><TextField id="outlined-basic" label="Username" variant="filled" onChange={(event) => { 
          setUsername(event.target.value);
        }}></TextField></Box>
@@ -43,22 +37,12 @@ function Login() {
       <TextField id="outlined-basic" label="Password" variant="filled" onChange={(event) => { 
          setPassword(event.target.value);
        }}></TextField>
-
+<div className="textcenter" style={{paddingTop: "8px", marginBottom: "-15px"}}>
+<Button variant="outlined" size="small" color="secondary" onClick={checkUser}>Submit</Button>
+</div>
 </Box>
-
-
-<Box textAlign="center">
-
-      <Box p={1}><Button variant="outlined" size="small" color="secondary" onClick={addUser}>Submit</Button></Box>
-      <Button variant="outlined" size="small" color="secondary" onClick={getUser}>Show Users</Button>
-        {UserList.map((val, key) => {
-          return <div>
-            <pre>{val.UserName} {val.UserPassword}</pre>
-            </div>
-        })}
-      
-</Box>
-      
+    <Link style={{paddingTop: "10px"}} href="/register">Not Registered? Click Here!</Link>
+    <h1 id = "response"></h1>
     </div>
   );
 }

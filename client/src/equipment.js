@@ -4,8 +4,17 @@ import KnightHelm from './img/knight_helm.png'
 import KnightBody from './img/knight_armor.png'
 import KnightArms from './img/knight_gauntlets.png'
 import KnightLegs from './img/knight_leggings.png'
+import EMPTY from './img/EMPTY.png';
 
 const equipment = [
+    {
+        id: 0,
+        name: 'Empty',
+        dps: '',
+        img: EMPTY,
+        type: "Empty"
+    },
+
     {
         id: 1,
         name: 'Claymore',
