@@ -45,9 +45,8 @@ app.post("/create", (req, res) => {
         if (err) {
             res.send(err);
         }
-
         db.query(
-            "INSERT INTO reguser (UserName, UserPassword) VALUES (?,?)", 
+            "INSERT INTO reguser (UserName, UserPassword, HeadSlot, BodySlot, ArmSlot, LegSlot, RingOneSlot, RingTwoSlot, PrimaryWep, SecondaryWep) VALUES (?,?,0,0,0,0,0,0,0,0)", 
             [Username, hash], 
             (err, result) => {
                 if(err){
