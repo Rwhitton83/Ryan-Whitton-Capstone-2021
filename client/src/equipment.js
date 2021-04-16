@@ -19,6 +19,8 @@ const equipment = [
         id: 1,
         name: 'Claymore',
         dps: '100 DPS',
+        attackSpeed: 1000,
+        flatDam: 25,
         img: Claymore,
         type: "Weapon"
     },
@@ -27,6 +29,8 @@ const equipment = [
         id: 2,
         name: 'Falchion',
         dps: '80 DPS',
+        attackSpeed: 500,
+        flatDam: 12,
         img: Falchion,
         type: "Weapon"
     },
