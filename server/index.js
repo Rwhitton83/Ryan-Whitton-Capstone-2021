@@ -58,6 +58,20 @@ app.post("/create", (req, res) => {
                 
             }
             );
+
+            db.query(
+                "INSERT INTO userprogress (enemyPos, primaryProg, secondaryProg, headProg, bodyProg, legProg, armProg) VALUES (0,0,0,0,0,0,0)", 
+                [], 
+                (err, result) => {
+                    if(err){
+                        res.send({message: "Error! User Already Exists"});
+                    }
+                    else{
+                        res.send({message: "Success!"})
+                    }
+                    
+                }
+                );
     })
 });
 
@@ -78,6 +92,44 @@ app.get("/login", (req, res) => {
     else{
         res.send({LoggedIn: false})
     }
+})
+
+app.post("/prog", (req, res) => {
+    if(req.session.user){
+        const enemyPos = req.body.enemyPos;
+        const estusNum = req.body.estusNum;
+        const currentHealth = req.body.currentHealth;
+        db.query(
+            "UPDATE userprogress SET enemyPos = ?, estusNum = ?, currentHealth = ? WHERE UserID = ?;", 
+            [enemyPos, estusNum, currentHealth, req.session.user[0].UserID], 
+            (err, result) => {
+                if(err){
+                    res.send({message: "Error! User Already Exists"});
+                }
+                else{
+                    res.send({message: "Success!"})
+                }
+                
+            }
+            );
+    }
+})
+
+app.get("/prog", (req, res) => {
+    if(req.session.user){
+        db.query(
+            "SELECT * FROM userprogress WHERE UserID = ?",
+             [req.session.user[0].UserID],
+             (err, result) => {
+                 if (err){
+                     console.log(err);
+                 }
+                 else{
+                     res.send({LoggedIn: true, user: result})
+                 }
+             })
+    }
+
 })
 
 app.post("/login", (req, res) => {

@@ -210,7 +210,7 @@ function Inv(){
 
     function Change(id, img, type) {
       
-      if(pwepSelect && type === "Weapon"){ 
+      if(pwepSelect && (type === "Weapon" || type === "Empty")){ 
       setpwepIMG(img)
       setpwepID(id)
       var slot1 = document.getElementById("slot1");
@@ -218,7 +218,7 @@ function Inv(){
       setpwepSelect(false);
       }
 
-      if(swepSelect && type === "Weapon"){
+      if(swepSelect && (type === "Weapon" || type === "Empty")){
       setswepIMG(img)
       setswepID(id)
       var slot2 = document.getElementById("slot2");
@@ -226,7 +226,7 @@ function Inv(){
       setswepSelect(false);
       }
 
-      if(hitemSelect && type === "Head"){
+      if(hitemSelect && (type === "Head" || type === "Empty")){
         sethitemIMG(img)
         sethitemID(id)
         var hitem = document.getElementById("hitem")
@@ -235,7 +235,7 @@ function Inv(){
         
       }
 
-      if(bitemSelect  && type === "Body"){
+      if(bitemSelect  && (type === "Body" || type === "Empty")){
         setbitemIMG(img)
         setbitemID(id)
         var bitem = document.getElementById("bitem")
@@ -243,14 +243,14 @@ function Inv(){
         setbitemSelect(false);
       }
 
-      if(aitemSelect && type === "Arm"){
+      if(aitemSelect && (type === "Arm" || type === "Empty")){
         setaitemIMG(img)
         setaitemID(id)
         var aitem = document.getElementById("aitem")
         aitem.style.backgroundColor = "white"
         setaitemSelect(false);
       }
-      if(litemSelect && type === "Leg"){
+      if(litemSelect && (type === "Leg" || type === "Empty")){
         setlitemIMG(img)
         setlitemID(id)
         var litem = document.getElementById("litem")

@@ -8,7 +8,7 @@ import axios from 'axios';
 function Fight(){
     const [state, setState] = useState(true);
     const [beginState, setBeginState] = useState(false);
-    const [pointer, setPointer] = useState(1);
+    var pointer = 0;
     const [begin, setBegin] = useState(false);
 
     const [counter, setCounter] = useState(0);
@@ -23,11 +23,15 @@ function Fight(){
     const [playerAttackSpeed, setPlayerAttackSpeed] = useState(1000);
     const [playerAttackDam, setPlayerAttackDam] = useState(1);
     const [playerAlive, setPlayerAlive] = useState(true);
+    const [playerDefenseRating, setPlayerDefenseRating] = useState(0);
     const [estus, setEstus] = useState(5);
 
     useEffect(() => {
         axios.get("http://localhost:3001/login").then((response) => {
             if(response.data.LoggedIn === true){
+
+                // Setting/Calculating users damage
+
                 let PrimaryFlatDam = equipment[response.data.user[0].PrimaryWep].flatDam;
                 let PrimaryAttackSpeed = equipment[response.data.user[0].PrimaryWep].attackSpeed;
                 let SecondaryFlatDam = equipment[response.data.user[0].SecondaryWep].flatDam;
@@ -39,9 +43,31 @@ function Fight(){
                 setPlayerAttackDam(combindedDamage);
                 setPlayerAttackSpeed(combindedAttackSpeed);
 
-                
+                // Setting/Calcuating users defence
+
+                let HeadDefense = equipment[response.data.user[0].HeadSlot].df;
+                let BodyDefense = equipment[response.data.user[0].BodySlot].df;
+                let ArmDefense = equipment[response.data.user[0].ArmSlot].df;
+                let LegDefense = equipment[response.data.user[0].LegSlot].df;
+
+                setPlayerDefenseRating(HeadDefense+BodyDefense+ArmDefense+LegDefense)  
             }
         });
+        // Getting Player Progress
+        axios.get("http://localhost:3001/prog").then((response) => {
+            if(response.data.LoggedIn === true){
+                setCurrentEnemy(enemies[response.data.user[0].enemyPos])
+                setCurrentEnemyAlive(true);
+                setCurrentEnemyHp(enemies[response.data.user[0].enemyPos].hp);
+                setCurrentEnemyAttackSpeed(enemies[response.data.user[0].enemyPos].attackSpeed);
+                setCurrentEnemyDamage(enemies[response.data.user[0].enemyPos].attackDamage);
+
+                setPlayerHealth(response.data.user[0].currentHealth);
+                setEstus(response.data.user[0].estusNum);
+            }
+            else
+                setCurrentEnemy(enemies[0]);
+        })
     }, [])
 
     useEffect(() => {
@@ -60,7 +86,8 @@ function Fight(){
 
     function DamagePlayer (hp, dam) {
         setTimeout(() => {setCounter(counter+1)}, currentEnemyAttackSpeed)
-            hp -= dam;
+            let totalDam = dam - ((playerDefenseRating / 100) * dam);
+            hp -= Math.ceil(totalDam);
             if( !(hp <= 0) ) {
                 setPlayerHealth(hp);
             }
@@ -68,6 +95,13 @@ function Fight(){
                 setPlayerHealth(0);
                 setPlayerAlive(false);
                 setState(true);
+                axios.post("http://localhost:3001/prog", {
+                    enemyPos: 0,
+                    estusNum: 5,
+                    currentHealth: 100
+                  }).then( res => {
+                    console.log(res)
+                  })
             }
     }
 
@@ -81,7 +115,7 @@ function Fight(){
         setBegin(false);
         document.getElementById("hp").innerHTML = "DEAD";
         setTimeout(() =>  {
-            enemieKilled();
+            EnemieKilled();
         }, 2000)
         }
     }
@@ -100,16 +134,24 @@ function Fight(){
         }
     }
 
-    function enemieKilled () {
+    function EnemieKilled () {
         setBegin(false);
         setState(true);
         setBeginState(false);
-        setPointer(pointer + 1);
+        pointer++;
+        console.log(pointer)
         setCurrentEnemy(enemies[pointer]);
         setCurrentEnemyAlive(true);
         setCurrentEnemyHp(enemies[pointer].hp);
         setCurrentEnemyAttackSpeed(enemies[pointer].attackSpeed);
         setCurrentEnemyDamage(enemies[pointer].attackDamage);
+        axios.post("http://localhost:3001/prog", {
+            enemyPos: pointer,
+            estusNum: estus,
+            currentHealth: playerHealth
+          }).then( res => {
+            console.log(res)
+          })
     }
 
         return (
@@ -126,6 +168,8 @@ function Fight(){
                     <div className="Php">Player Health: {playerHealth} 
                         <br></br>
                         Attack Speed: {playerAttackSpeed / 1000}
+                        <br></br>
+                        Defense Rating: {playerDefenseRating}
                         <br></br>
                         Estus Flask: {estus}
                     </div>

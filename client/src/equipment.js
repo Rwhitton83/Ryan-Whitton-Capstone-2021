@@ -11,6 +11,9 @@ const equipment = [
         id: 0,
         name: 'Empty',
         dps: '',
+        attackSpeed: 500,
+        flatDam: 1,
+        df: 0,
         img: EMPTY,
         type: "Empty"
     },
@@ -18,9 +21,9 @@ const equipment = [
     {
         id: 1,
         name: 'Claymore',
-        dps: '100 DPS',
         attackSpeed: 1000,
         flatDam: 25,
+        dps: '100 DPS',
         img: Claymore,
         type: "Weapon"
     },
@@ -38,7 +41,8 @@ const equipment = [
     {
         id: 3,
         name: 'Knight Helm',
-        dps: '12 Armor',
+        dps: '4 Armor',
+        df: 4,
         img: KnightHelm,
         type: "Head"
     },
@@ -47,6 +51,7 @@ const equipment = [
         id: 4,
         name: 'Knight Body',
         dps: '12 Armor',
+        df: 12,
         img: KnightBody,
         type: "Body"
     },
@@ -54,7 +59,8 @@ const equipment = [
     {
         id: 5,
         name: 'Knight Gauntlets',
-        dps: '12 Armor',
+        dps: '6 Armor',
+        df: 12,
         img: KnightArms,
         type: "Arm"
     },
@@ -63,6 +69,7 @@ const equipment = [
         id: 6,
         name: 'Knight Leggings',
         dps: '12 Armor',
+        df: 12,
         img: KnightLegs,
         type: "Leg"
     }
