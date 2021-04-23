@@ -33,7 +33,7 @@ function Register() {
 
        <br></br>
 
-      <TextField id="outlined-basic" label="Password" variant="filled" onChange={(event) => { 
+      <TextField id="outlined-basic" type="password" label="Password" variant="filled" onChange={(event) => { 
          setPassword(event.target.value);
        }}></TextField>
 <div className="textcenter" style={{paddingTop: "8px", marginBottom: "-15px"}}>

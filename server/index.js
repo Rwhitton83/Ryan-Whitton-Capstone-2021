@@ -54,24 +54,19 @@ app.post("/create", (req, res) => {
                 }
                 else{
                     res.send({message: "Success!"})
+                    db.query(
+                        "INSERT INTO userprogress (enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg) VALUES (0,7,100,0,0,0,0,0)", 
+                        [], 
+                        (err, result) => {
+                            if(err){
+                                console.log(err);
+                            }
+                        }
+                        );
                 }
                 
             }
             );
-
-            db.query(
-                "INSERT INTO userprogress (enemyPos, primaryProg, secondaryProg, headProg, bodyProg, legProg, armProg) VALUES (0,0,0,0,0,0,0)", 
-                [], 
-                (err, result) => {
-                    if(err){
-                        res.send({message: "Error! User Already Exists"});
-                    }
-                    else{
-                        res.send({message: "Success!"})
-                    }
-                    
-                }
-                );
     })
 });
 
@@ -96,22 +91,46 @@ app.get("/login", (req, res) => {
 
 app.post("/prog", (req, res) => {
     if(req.session.user){
+
         const enemyPos = req.body.enemyPos;
         const estusNum = req.body.estusNum;
         const currentHealth = req.body.currentHealth;
-        db.query(
-            "UPDATE userprogress SET enemyPos = ?, estusNum = ?, currentHealth = ? WHERE UserID = ?;", 
-            [enemyPos, estusNum, currentHealth, req.session.user[0].UserID], 
-            (err, result) => {
-                if(err){
-                    res.send({message: "Error! User Already Exists"});
+        const primaryProg = req.body.primaryProg;
+        const headProg = req.body.headProg;
+        const bodyProg = req.body.bodyProg;
+        const legProg = req.body.legProg;
+        const armProg = req.body.armProg;
+
+        if(enemyPos >= 0 && estusNum >= 0 && currentHealth >= 0 && primaryProg >= 0 && headProg >= 0 && bodyProg >= 0 && legProg >= 0 && armProg >= 0){
+            db.query(
+                "UPDATE userprogress SET enemyPos = ?, estusNum = ?, currentHealth = ?, primaryProg = ?, headProg = ?, bodyProg = ?, legProg = ?, armProg = ? WHERE UserID = ?;", 
+                [enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg, req.session.user[0].UserID], 
+                (err, result) => {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log("Updated Prog")
+                    }
+                    
                 }
-                else{
-                    res.send({message: "Success!"})
-                }
-                
-            }
             );
+        }
+        else if (enemyPos >= 0 && estusNum >= 0 && currentHealth >= 0){
+            db.query(
+                "UPDATE userprogress SET enemyPos = ?, estusNum = ?, currentHealth = ? WHERE UserID = ?;", 
+                [enemyPos, estusNum, currentHealth, req.session.user[0].UserID], 
+                (err, result) => {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log("Updated Stats")
+                    }
+                    
+                }
+            );
+        }
     }
 })
 

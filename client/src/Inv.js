@@ -22,10 +22,12 @@ function Inv(){
     const [pwepSelect, setpwepSelect] = useState(false);
     const [pwepIMG, setpwepIMG] = useState(EMPTY);
     const [pwepID, setpwepID] = useState("0");
+    const [pwepType, setpwepType] = useState();
 
     const [swepSelect, setswepSelect] = useState(false);
     const [swepIMG, setswepIMG] = useState(EMPTY);
     const [swepID, setswepID] = useState("0");
+    const [swepType, setswepType] = useState();
 
     const [hitemSelect, sethitemSelect] = useState(false);
     const [hitemIMG, sethitemIMG] = useState(EMPTY);
@@ -43,31 +45,68 @@ function Inv(){
     const [litemIMG, setlitemIMG] = useState(EMPTY);
     const [litemID, setlitemID] = useState("0");
 
-    const [InvList, setInvList] = useState([]); // FOR RESPONSE
+    const [currInv, setCurrInv] = useState([equipment.weapons[0],equipment.weapons[1]]);
 
     useEffect(()=>{
       Axios.get("http://localhost:3001/login").then((response) => {
-          console.log(response)
           if(response.data.LoggedIn === true)
           {
             setpwepID(response.data.user[0].PrimaryWep)
-            setpwepIMG(equipment[response.data.user[0].PrimaryWep].img)
+            setpwepIMG(equipment.weapons[response.data.user[0].PrimaryWep].img)
+            setpwepType(equipment.weapons[response.data.user[0].PrimaryWep].type)
 
             setswepID(response.data.user[0].SecondaryWep)
-            setswepIMG(equipment[response.data.user[0].SecondaryWep].img)
+            setswepIMG(equipment.weapons[response.data.user[0].SecondaryWep].img)
+            setswepType(equipment.weapons[response.data.user[0].PrimaryWep].type)
 
             sethitemID(response.data.user[0].HeadSlot)
-            sethitemIMG(equipment[response.data.user[0].HeadSlot].img)
+            sethitemIMG(equipment.head[response.data.user[0].HeadSlot].img)
 
             setbitemID(response.data.user[0].BodySlot)
-            setbitemIMG(equipment[response.data.user[0].BodySlot].img)
+            setbitemIMG(equipment.body[response.data.user[0].BodySlot].img)
 
             setaitemID(response.data.user[0].ArmSlot)
-            setaitemIMG(equipment[response.data.user[0].ArmSlot].img)
+            setaitemIMG(equipment.arm[response.data.user[0].ArmSlot].img)
 
             setlitemID(response.data.user[0].LegSlot)
-            setlitemIMG(equipment[response.data.user[0].LegSlot].img)
+            setlitemIMG(equipment.leg[response.data.user[0].LegSlot].img)
           }
+          Axios.get("http://localhost:3001/prog").then((response) => {
+          const invProg = [...currInv];
+          for (let i = 0; i < response.data.user[0].primaryProg; i++){
+            if(equipment.weapons[i].type !== "Empty"){
+            invProg.push(equipment.weapons[i]);
+            console.log(invProg);
+            }
+          }
+          for (let i = 0; i < response.data.user[0].headProg; i++){
+            if(equipment.head[i].type !== "Empty"){
+            invProg.push(equipment.head[i]);
+            console.log(invProg);
+            }
+          }
+          for (let i = 0; i < response.data.user[0].bodyProg; i++){
+            if(equipment.body[i].type !== "Empty"){
+            invProg.push(equipment.body[i]);
+            console.log(invProg);
+            }
+          }
+          for (let i = 0; i < response.data.user[0].armProg; i++){
+            if(equipment.arm[i].type !== "Empty"){
+            invProg.push(equipment.arm[i]);
+            console.log(invProg);
+            }
+          }
+          for (let i = 0; i < response.data.user[0].legProg; i++){
+            if(equipment.leg[i].type !== "Empty"){
+            invProg.push(equipment.leg[i]);
+            console.log(invProg);
+            }
+          }
+
+          setCurrInv(invProg);
+          
+        })
       });
   }, [])
 
@@ -210,17 +249,24 @@ function Inv(){
 
     function Change(id, img, type) {
       
-      if(pwepSelect && (type === "Weapon" || type === "Empty")){ 
+      if(pwepSelect && (type === "Two Handed" || type === "One Handed" || type === "Empty")){ 
+        if(type === "Two Handed"){
+          setswepID(0);
+          setswepIMG(EMPTY);
+          setswepSelect(false);
+        }
       setpwepIMG(img)
       setpwepID(id)
+      setpwepType(type);
       var slot1 = document.getElementById("slot1");
       slot1.style.backgroundColor = "white"
       setpwepSelect(false);
       }
 
-      if(swepSelect && (type === "Weapon" || type === "Empty")){
+      if(swepSelect && (type === "One Handed" || type === "Empty") && pwepType !== "Two Handed"){
       setswepIMG(img)
       setswepID(id)
+      setswepType(type);
       var slot2 = document.getElementById("slot2");
       slot2.style.backgroundColor = "white";
       setswepSelect(false);
@@ -349,7 +395,7 @@ function Inv(){
     <h1 className="textcenter">Items</h1>
     <Divider></Divider>
             <List className={classes.ListStyle}>
-                {equipment.map(({id, name, dps, img, type}, index) => {
+                {currInv.map(({id, name, dps, img, type}, index) => {
                     return(
                         <ListItem onClick={() => {Change(id, img, type);}}>
                         <Paper className = {classes.Item}>

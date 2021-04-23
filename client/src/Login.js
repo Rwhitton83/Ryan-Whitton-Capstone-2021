@@ -24,26 +24,29 @@ function Login() {
 
 
   return (
-    <div className="Login"> 
-<Box p={3} component={Paper}>
+  <div className="Login"> 
+    <Box p={3} component={Paper}>
+      
       <h3 style ={{textAlign:"center"}}>Login Below</h3>
       <Divider></Divider>
       <Box pt={1}><TextField id="outlined-basic" label="Username" variant="filled" onChange={(event) => { 
-         setUsername(event.target.value);
-       }}></TextField></Box>
+        setUsername(event.target.value);
+      }}></TextField></Box>
 
-       <br></br>
+      <br></br>
 
-      <TextField id="outlined-basic" label="Password" variant="filled" onChange={(event) => { 
-         setPassword(event.target.value);
-       }}></TextField>
-<div className="textcenter" style={{paddingTop: "8px", marginBottom: "-15px"}}>
-<Button variant="outlined" size="small" color="secondary" onClick={checkUser}>Submit</Button>
-</div>
-</Box>
+      <TextField id="outlined-basic" type="password" label="Password" variant="filled" onChange={(event) => { 
+        setPassword(event.target.value);
+      }}></TextField>
+
+      <div className="textcenter" style={{paddingTop: "8px", marginBottom: "-15px"}}>
+      <Button variant="outlined" size="small" color="secondary" onClick={checkUser}>Submit</Button>
+      </div>
+
+    </Box>
     <Link style={{paddingTop: "10px"}} href="/register">Not Registered? Click Here!</Link>
     <h1 id = "response"></h1>
-    </div>
+  </div>
   );
 }
 
