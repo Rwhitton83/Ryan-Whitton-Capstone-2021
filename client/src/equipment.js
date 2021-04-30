@@ -26,7 +26,7 @@ const equipment = {
         {
             id: 1,
             name: 'Broken Sword',
-            dps: '30 DPS',
+            dps: '5 Attack Power',
             attackSpeed: 450,
             flatDam: 5,
             df: 0,
@@ -37,7 +37,7 @@ const equipment = {
         {
             id: 2,
             name: 'Falchion',
-            dps: '80 DPS',
+            dps: '12 Attack Power',
             attackSpeed: 500,
             flatDam: 12,
             img: Falchion,
@@ -49,7 +49,7 @@ const equipment = {
             name: 'Claymore',
             attackSpeed: 1000,
             flatDam: 25,
-            dps: '100 DPS',
+            dps: '25 Attack Power',
             img: Claymore,
             type: "Two Handed"
         },

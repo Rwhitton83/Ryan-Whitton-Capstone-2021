@@ -55,7 +55,7 @@ app.post("/create", (req, res) => {
                 else{
                     res.send({message: "Success!"})
                     db.query(
-                        "INSERT INTO userprogress (enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg) VALUES (0,7,100,0,0,0,0,0)", 
+                        "INSERT INTO userprogress (enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg) VALUES (0,7,100,2,1,1,1,1)", 
                         [], 
                         (err, result) => {
                             if(err){
@@ -126,6 +126,24 @@ app.post("/prog", (req, res) => {
                     }
                     else{
                         console.log("Updated Stats")
+                    }
+                    
+                }
+            );
+        }
+        else if (Object.keys(req.body).length === 1){
+            let input = Object.getOwnPropertyNames(req.body).sort();
+            input = input[0];
+            let data = req.body;
+            db.query(
+                "UPDATE userprogress SET ? WHERE UserID = ?;", 
+                [data, req.session.user[0].UserID], 
+                (err, result) => {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log("Item Dropped!")
                     }
                     
                 }

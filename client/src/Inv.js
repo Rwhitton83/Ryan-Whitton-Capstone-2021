@@ -45,7 +45,7 @@ function Inv(){
     const [litemIMG, setlitemIMG] = useState(EMPTY);
     const [litemID, setlitemID] = useState("0");
 
-    const [currInv, setCurrInv] = useState([equipment.weapons[0],equipment.weapons[1]]);
+    const [currInv, setCurrInv] = useState([equipment.weapons[0]]);
 
     useEffect(()=>{
       Axios.get("http://localhost:3001/login").then((response) => {
@@ -76,31 +76,26 @@ function Inv(){
           for (let i = 0; i < response.data.user[0].primaryProg; i++){
             if(equipment.weapons[i].type !== "Empty"){
             invProg.push(equipment.weapons[i]);
-            console.log(invProg);
             }
           }
           for (let i = 0; i < response.data.user[0].headProg; i++){
             if(equipment.head[i].type !== "Empty"){
             invProg.push(equipment.head[i]);
-            console.log(invProg);
             }
           }
           for (let i = 0; i < response.data.user[0].bodyProg; i++){
             if(equipment.body[i].type !== "Empty"){
             invProg.push(equipment.body[i]);
-            console.log(invProg);
             }
           }
           for (let i = 0; i < response.data.user[0].armProg; i++){
             if(equipment.arm[i].type !== "Empty"){
             invProg.push(equipment.arm[i]);
-            console.log(invProg);
             }
           }
           for (let i = 0; i < response.data.user[0].legProg; i++){
             if(equipment.leg[i].type !== "Empty"){
             invProg.push(equipment.leg[i]);
-            console.log(invProg);
             }
           }
 
@@ -395,7 +390,7 @@ function Inv(){
     <h1 className="textcenter">Items</h1>
     <Divider></Divider>
             <List className={classes.ListStyle}>
-                {currInv.map(({id, name, dps, img, type}, index) => {
+                {currInv.map(({id, name, dps, img, type, flatDam}, index) => {
                     return(
                         <ListItem onClick={() => {Change(id, img, type);}}>
                         <Paper className = {classes.Item}>

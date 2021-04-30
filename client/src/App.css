@@ -64,19 +64,19 @@ align-items: center;
 
 .enemie {
   padding-top: 30px;
-text-align: center;
+  text-align: center;
 }
 
 .img {
-  width: 500px;
-  height: 500px;
+  width: 43.5em;
+  height: 32em;
   object-fit: cover;
 }
 
 .Ehp{
   color: red;
   font-size: xx-large;
-  line-height: 2;
+  line-height: 1.5;
   text-align: center;
 }
 
@@ -88,4 +88,9 @@ text-align: center;
 .fightbuttn{
   width: 100px;
   margin-top: 10px;
+}
+
+.itemDrop{
+  text-align: center;
+  padding-top: 5px;
 }
