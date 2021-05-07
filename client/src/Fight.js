@@ -4,6 +4,7 @@ import enemies from "./enemies.js"
 import EnemieRender from "./EnemieRender.js"
 import equipment from './equipment.js';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 
 function Fight(){
     const [state, setState] = useState(true);
@@ -20,6 +21,7 @@ function Fight(){
     const [currentEnemyDamage, setCurrentEnemyDamage] = useState(enemies[0].attackDamage);
 
     const [playerHealth, setPlayerHealth] = useState(100);
+    const [playerDisplayHealth, setPlayerDisplayHealth] = useState(100);
     const [playerAttackSpeed, setPlayerAttackSpeed] = useState(1000);
     const [playerAttackDam, setPlayerAttackDam] = useState(1);
     const [playerAlive, setPlayerAlive] = useState(true);
@@ -75,7 +77,9 @@ function Fight(){
                 setCurrentEnemyAttackSpeed(enemies[response.data.user[0].enemyPos].attackSpeed);
                 setCurrentEnemyDamage(enemies[response.data.user[0].enemyPos].attackDamage);
                 setPlayerHealth(response.data.user[0].currentHealth);
+                setPlayerDisplayHealth(response.data.user[0].currentHealth);
                 setEstus(response.data.user[0].estusNum);
+                setPointer(response.data.user[0].enemyPos);
             }
             else
                 setCurrentEnemy(enemies[0]);
@@ -98,12 +102,14 @@ function Fight(){
     function DamagePlayer (hp, dam) {
         setTimeout(() => {setCounter(counter+1)}, currentEnemyAttackSpeed)
             let totalDam = dam - ((playerDefenseRating / 100) * dam);
-            hp -= Math.ceil(totalDam);
+            hp -= totalDam;
             if( !(hp <= 0) ) {
                 setPlayerHealth(hp);
+                setPlayerDisplayHealth(Math.floor(hp));
             }
             else{
                 setPlayerHealth(0);
+                setPlayerDisplayHealth(0);
                 setPlayerAlive(false);
                 setState(true);
                 axios.post("http://localhost:3001/prog", {
@@ -117,7 +123,7 @@ function Fight(){
     }
 
     function DamageEnemy (hp, dam) { 
-        if(state === false){
+        if(state === false && hp != null){
         hp -= dam;
         if(!(hp <= 0))
         setCurrentEnemyHp(hp);
@@ -136,16 +142,19 @@ function Fight(){
         if(estus > 0 && playerAlive){
             if((playerHealth + 20) > 100){    
                 setPlayerHealth(100);
+                setPlayerDisplayHealth(100);
                 setEstus(estus-1);
             }
             else if ((playerHealth) < 100){
                 setPlayerHealth(playerHealth + 20);
+                setPlayerDisplayHealth(Math.floor(playerHealth + 20));
                 setEstus(estus-1);
             }
         }
     }
 
     function EnemieKilled () {
+        console.log("ran")
         const currentPos = pointer + 1;
         setBegin(false);
         setState(true);
@@ -169,12 +178,10 @@ function Fight(){
         axios.get("http://localhost:3001/prog").then((response) => {
         if(response.data.LoggedIn === true){
             progress.push(response.data.user[0].primaryProg, response.data.user[0].headProg, response.data.user[0].bodyProg, response.data.user[0].armProg, response.data.user[0].legProg);
-            let chance = Math.floor(Math.random() * 4);
-            chance = 3;
-            if (chance === 3){                       
+            let chance = Math.floor(Math.random() * 2);
+            if (chance === 1){                       
                 let itemDropText = document.getElementById("itemDrop");
                 chance = Math.floor(Math.random() * 5);
-                chance = 0;
                 if(chance === 0 && !((progress[0] + 1) > equipment.weapons.length)){
                     itemDropText.innerHTML = "New Item Dropped! Check Inventory!"
                     axios.post("http://localhost:3001/prog", {
@@ -224,16 +231,18 @@ function Fight(){
 
         return (
             
-            <div>
-                <h1 className="textcenter">TO THE DEATH!</h1>
+            <div  style={{backgroundColor:"lightgray"}}>
+            <Typography style={{backgroundColor: "lightgrey", margin: 0}} component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              Grand Arena
+            </Typography>
 
-                <div className="game-area">
+                <div  style={{backgroundColor: "white"}} className="game-area">
                 <EnemieRender enemies = {currentEnemy}/>
                 <div id = "hp" className="Ehp">{currentEnemyHp}</div>
                 </div>
 
                 <div className="controls">
-                    <div className="Php">Player Health: {playerHealth} 
+                    <div className="Php">Player Health: {playerDisplayHealth}
                         <br></br>
                         Attack Speed: {playerAttackSpeed / 1000}
                         <br></br>

@@ -7,6 +7,12 @@ import KnightBody from './img/knight_armor.png'
 import KnightArms from './img/knight_gauntlets.png'
 import KnightLegs from './img/knight_leggings.png'
 
+import ThornHelm from './img/thorn_helm.png'
+import ThornBody from './img/thorn_body.png'
+import ThornArm from './img/thorn_arm.png'
+import ThornLeg from './img/thorn_leg.png'
+
+
 import EMPTY from './img/EMPTY.png'
 
 
@@ -47,7 +53,7 @@ const equipment = {
         {
             id: 3,
             name: 'Claymore',
-            attackSpeed: 1000,
+            attackSpeed: 850,
             flatDam: 25,
             dps: '25 Attack Power',
             img: Claymore,
@@ -65,13 +71,20 @@ const equipment = {
             img: EMPTY,
             type: "Empty"
         },
-
         {
             id: 1,
             name: 'Knight Helm',
             dps: '4 Armor',
-            df: 4,
+            df: 2,
             img: KnightHelm,
+            type: "Head"
+        },
+        {
+            id: 2,
+            name: 'Thorn Helm',
+            dps: '6 Armor',
+            df: 6,
+            img: ThornHelm,
             type: "Head"
         },
     ],
@@ -90,8 +103,16 @@ const equipment = {
             id: 1,
             name: 'Knight Body',
             dps: '12 Armor',
-            df: 12,
+            df: 6,
             img: KnightBody,
+            type: "Body"
+        },
+        {
+            id: 2,
+            name: 'Thorn Body',
+            dps: '24 Armor',
+            df: 24,
+            img: ThornBody,
             type: "Body"
         },
 
@@ -111,8 +132,16 @@ const equipment = {
             id: 1,
             name: 'Knight Gauntlets',
             dps: '6 Armor',
-            df: 12,
+            df: 6,
             img: KnightArms,
+            type: "Arm"
+        },
+        {
+            id: 2,
+            name: 'Thorn Gauntlets',
+            dps: '12 Armor',
+            df: 12,
+            img: ThornArm,
             type: "Arm"
         },
 
@@ -128,13 +157,20 @@ const equipment = {
             img: EMPTY,
             type: "Empty"
         },
-
         {
             id: 1,
             name: 'Knight Leggings',
+            dps: '6 Armor',
+            df: 6,
+            img: KnightLegs,
+            type: "Leg"
+        },
+        {
+            id: 2,
+            name: 'Thorn Leggings',
             dps: '12 Armor',
             df: 12,
-            img: KnightLegs,
+            img: ThornLeg,
             type: "Leg"
         }
 

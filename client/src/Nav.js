@@ -43,14 +43,10 @@ export default function TemporaryDrawer() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List >
           <ListItem button component="a" href="/">
             <ListItemIcon><InboxIcon /></ListItemIcon>
             <ListItemText>Home</ListItemText>
-          </ListItem>
-          <ListItem button component="a" href="/about">
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText>About</ListItemText>
           </ListItem>
           <ListItem button component="a" href="/inv">
             <ListItemIcon><InboxIcon /></ListItemIcon>
@@ -64,7 +60,6 @@ export default function TemporaryDrawer() {
             <ListItemIcon><InboxIcon /></ListItemIcon>
             <ListItemText><strong>Fight!</strong></ListItemText>
           </ListItem>
-          
       </List>
       <Divider />
     </div>

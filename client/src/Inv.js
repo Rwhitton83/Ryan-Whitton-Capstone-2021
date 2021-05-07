@@ -394,7 +394,7 @@ function Inv(){
                     return(
                         <ListItem onClick={() => {Change(id, img, type);}}>
                         <Paper className = {classes.Item}>
-                        <ListItemText className={classes.ListMargin} primary={name} secondary={dps} />
+                        <ListItemText className={classes.ListMargin} primary={name} secondary={dps +" :: "+type} />
                         <img className={classes.image} src={img} alt={id}></img>
                         </Paper>
                         </ListItem>
