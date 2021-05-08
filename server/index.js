@@ -185,7 +185,7 @@ app.post("/login", (req, res) => {
             bcrpyt.compare(Password, result[0].UserPassword, (error, response) => {
                 if(response){
                     req.session.user = result
-                    res.send(result)
+                    res.send({message: "Successfully logged in!"})
                 }
                 else
                     {

@@ -6,6 +6,7 @@ import Link from '@material-ui/core/Link';
 
 import tutorialPic1 from "./img/weapon_tut.png"
 import tutorialPic2 from "./img/armor_tut.png"
+import tutorialPic3 from "./img/combat_tut.png"
 import { Divider } from '@material-ui/core';
 
 function Copyright() {
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -56,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
     height: "690px",
     position: "relative",
     left: "23.3%",
+  },
+  tutorial3: {
+    height: "690px",
+    position: "relative",
+    left: "28%",
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -92,6 +97,23 @@ export default function Album() {
         </Typography>
         <img className={classes.tutorial1} src={tutorialPic1}></img>
         <img className={classes.tutorial2} src={tutorialPic2}></img>
+        <Divider></Divider>
+        <Typography style={{paddingTop: "20px"}} component="h3" variant="h4" align="center" color="textPrimary" gutterBottom>
+              Fight Overview:
+        </Typography>
+        <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              The goal is to beat all five enemies, the last 5th enemy being a boss! <br></br> Preperation is needed to defeat the later enemies, as they are harder.
+              Below are pictures giving a brief overview of the combat system: <br></br>
+              Player stats are perserved until death! This includes estus amounts and player health!
+        </Typography>
+        <img className={classes.tutorial3} src={tutorialPic3}></img>
+        <Divider></Divider>
+        <Typography style={{paddingTop: "20px"}} component="h3" variant="h4" align="center" color="textPrimary" gutterBottom>
+              Prepare to Die!:
+        </Typography>
+        <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              Head over to the login page and register to start your journey!
+        </Typography>
       </div>
   );
 }
