@@ -1,5 +1,6 @@
 const PORT = 3000;
 
+const path = require('path');
 const express = require("express")
 const app = express()
 const mysql = require("mysql")
@@ -39,7 +40,7 @@ const db = mysql.createConnection({
     database: "heroku_b070be5b6492dc5",
 });
 
-//mysql://ba8f46b7773227:988fbde3@us-cdbr-east-03.cleardb.com/heroku_b070be5b6492dc5?reconnect=true
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.post("/create", (req, res) => {
     const Username = req.body.Username;
