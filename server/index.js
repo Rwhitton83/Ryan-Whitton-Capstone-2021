@@ -222,6 +222,6 @@ app.post("/items", (req, res) => {
         }
     );
 
-app.listen(3001, ()=> {
-    console.log("Server Running port 3001");
+app.listen(process.env.PORT | PORT, ()=> {
+    console.log('Server Running port ${PORT}');
 })
