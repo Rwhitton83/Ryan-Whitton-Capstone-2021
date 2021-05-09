@@ -48,7 +48,7 @@ function Inv(){
     const [currInv, setCurrInv] = useState([equipment.weapons[0]]);
 
     useEffect(()=>{
-      Axios.get("http://localhost:3001/login").then((response) => {
+      Axios.get("https://grand-arena-capstone.herokuapp.com/login").then((response) => {
           if(response.data.LoggedIn === true)
           {
             setpwepID(response.data.user[0].PrimaryWep)
@@ -71,7 +71,7 @@ function Inv(){
             setlitemID(response.data.user[0].LegSlot)
             setlitemIMG(equipment.leg[response.data.user[0].LegSlot].img)
           }
-          Axios.get("http://localhost:3001/prog").then((response) => {
+          Axios.get("https://grand-arena-capstone.herokuapp.com/prog").then((response) => {
           const invProg = [...currInv];
           for (let i = 0; i < response.data.user[0].primaryProg; i++){
             if(equipment.weapons[i].type !== "Empty"){
@@ -106,7 +106,7 @@ function Inv(){
   }, [])
 
     const setItems = () => {
-      Axios.post("http://localhost:3001/items", {
+      Axios.post("https://grand-arena-capstone.herokuapp.com/items", {
       pwepID: pwepID, 
       swepID: swepID,
       hitemID: hitemID,

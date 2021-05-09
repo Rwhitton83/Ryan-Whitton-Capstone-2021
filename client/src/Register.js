@@ -13,7 +13,7 @@ function Register() {
   const [Password, setPassword] = useState("");
 
   const addUser = () => {
-    Axios.post("http://localhost:3001/create", {
+    Axios.post("https://grand-arena-capstone.herokuapp.com/create", {
       Username: Username, 
       Password: Password,
     }).then(res => {

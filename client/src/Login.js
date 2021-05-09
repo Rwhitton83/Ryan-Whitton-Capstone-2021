@@ -13,7 +13,7 @@ function Login() {
   const [Password, setPassword] = useState("");
 
   const checkUser = () => {
-    Axios.post("http://localhost:3001/login", {
+    Axios.post("https://grand-arena-capstone.herokuapp.com/login", {
       Username: Username, 
       Password: Password,
     }).then(res => {

@@ -7,7 +7,7 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 
-const bcrpyt = require('bcrypt')
+var bcrypt = require('bcryptjs');
 const saltRounds = 10
 
 app.use(express.json());
@@ -22,25 +22,28 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(session({
     key: "userID",
     secret: "VerySecretKey",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     cookie: {
+        path: "/",
+        secure: true,
+        httpOnly: true,
         expires: 20 * 1000 * 1000
     },
 }))
 
 const db = mysql.createConnection({
-    user: "Ryan",
-    host: "localhost",
-    password: "pass",
-    database: "website_user/pass",
+    user: "b55c893465f57d",
+    host: "us-cdbr-east-03.cleardb.com",
+    password: "1363f9ee",
+    database: "heroku_5be602342cdb945",
 });
 
 app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
 
-    bcrpyt.hash(Password, saltRounds, (err, hash) => {
+    bcrypt.hash(Password, saltRounds, (err, hash) => {
         
         if (err) {
             res.send(err);
@@ -182,7 +185,7 @@ app.post("/login", (req, res) => {
             res.send({err: err});
         }
         if (result.length > 0) {
-            bcrpyt.compare(Password, result[0].UserPassword, (error, response) => {
+            bcrypt.compare(Password, result[0].UserPassword, (error, response) => {
                 if(response){
                     req.session.user = result
                     res.send({message: "Successfully logged in!"})
@@ -222,6 +225,6 @@ app.post("/items", (req, res) => {
         }
     );
 
-app.listen(process.env.PORT | PORT, ()=> {
-    console.log('Server Running port ${PORT}');
+app.listen(process.env.PORT || PORT, ()=> {
+    console.log('Server Running');
 })

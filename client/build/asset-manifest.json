@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1c9f8f75.chunk.css",
+    "main.js": "/static/js/main.7050fea8.chunk.js",
+    "main.js.map": "/static/js/main.7050fea8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cac25351.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cac25351.js.map",
+    "static/js/2.55c5ec5d.chunk.js": "/static/js/2.55c5ec5d.chunk.js",
+    "static/js/2.55c5ec5d.chunk.js.map": "/static/js/2.55c5ec5d.chunk.js.map",
+    "static/js/3.e4e11403.chunk.js": "/static/js/3.e4e11403.chunk.js",
+    "static/js/3.e4e11403.chunk.js.map": "/static/js/3.e4e11403.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.1c9f8f75.chunk.css.map": "/static/css/main.1c9f8f75.chunk.css.map",
+    "static/js/2.55c5ec5d.chunk.js.LICENSE.txt": "/static/js/2.55c5ec5d.chunk.js.LICENSE.txt",
+    "static/media/Soldier.f3cead15.jpg": "/static/media/Soldier.f3cead15.jpg",
+    "static/media/Stalker.6f479322.png": "/static/media/Stalker.6f479322.png",
+    "static/media/armor_tut.9c4ce54c.png": "/static/media/armor_tut.9c4ce54c.png",
+    "static/media/combat_tut.9f712e95.png": "/static/media/combat_tut.9f712e95.png",
+    "static/media/giantskel.478a388c.png": "/static/media/giantskel.478a388c.png",
+    "static/media/hollow.632706f7.png": "/static/media/hollow.632706f7.png",
+    "static/media/the_pursuer.fe6d8097.png": "/static/media/the_pursuer.fe6d8097.png",
+    "static/media/theend.887b583e.png": "/static/media/theend.887b583e.png",
+    "static/media/weapon_tut.3ee35ee7.png": "/static/media/weapon_tut.3ee35ee7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cac25351.js",
+    "static/js/2.55c5ec5d.chunk.js",
+    "static/css/main.1c9f8f75.chunk.css",
+    "static/js/main.7050fea8.chunk.js"
+  ]
+}

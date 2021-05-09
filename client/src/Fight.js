@@ -31,7 +31,7 @@ function Fight(){
     const progress = [];
 
     useEffect(() => {
-        axios.get("http://localhost:3001/login").then((response) => {
+        axios.get("https://grand-arena-capstone.herokuapp.com/login").then((response) => {
             if(response.data.LoggedIn === true){
 
                 // Setting/Calculating users damage
@@ -69,7 +69,7 @@ function Fight(){
             }
         });
         // Getting Player Progress
-        axios.get("http://localhost:3001/prog").then((response) => {
+        axios.get("https://grand-arena-capstone.herokuapp.com/prog").then((response) => {
             if(response.data.LoggedIn === true){
                 setCurrentEnemy(enemies[response.data.user[0].enemyPos])
                 setCurrentEnemyAlive(true);
@@ -112,7 +112,7 @@ function Fight(){
                 setPlayerDisplayHealth(0);
                 setPlayerAlive(false);
                 setState(true);
-                axios.post("http://localhost:3001/prog", {
+                axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
                     enemyPos: 0,
                     estusNum: 7,
                     currentHealth: 100
@@ -167,7 +167,7 @@ function Fight(){
         setCurrentEnemyAttackSpeed(enemies[currentPos].attackSpeed);
         setCurrentEnemyDamage(enemies[currentPos].attackDamage);
 
-        axios.post("http://localhost:3001/prog", {
+        axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
             enemyPos: currentPos,
             estusNum: estus,
             currentHealth: playerHealth,
@@ -175,7 +175,7 @@ function Fight(){
             console.log(res)
           });
 
-        axios.get("http://localhost:3001/prog").then((response) => {
+        axios.get("https://grand-arena-capstone.herokuapp.com/prog").then((response) => {
         if(response.data.LoggedIn === true){
             progress.push(response.data.user[0].primaryProg, response.data.user[0].headProg, response.data.user[0].bodyProg, response.data.user[0].armProg, response.data.user[0].legProg);
             let chance = Math.floor(Math.random() * 2);
@@ -184,7 +184,7 @@ function Fight(){
                 chance = Math.floor(Math.random() * 5);
                 if(chance === 0 && !((progress[0] + 1) > equipment.weapons.length)){
                     itemDropText.innerHTML = "New Item Dropped! Check Inventory!"
-                    axios.post("http://localhost:3001/prog", {
+                    axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
                         primaryProg: progress[0] + 1
                       }).then( res => {
                         console.log(res)
@@ -192,7 +192,7 @@ function Fight(){
                 }
                 else if(chance === 1 && !((progress[1] + 1) > equipment.head.length)){
                     itemDropText.innerHTML = "New Item Dropped! Check Inventory!"
-                    axios.post("http://localhost:3001/prog", {
+                    axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
                         headProg: progress[1] + 1                   // Offset to avoid empty in equipmemt
                       }).then( res => {
                         console.log(res)
@@ -201,7 +201,7 @@ function Fight(){
                 else if(chance === 2 && !((progress[2] + 1) > equipment.body.length)){
                     itemDropText.innerHTML = "New Item Dropped! Check Inventory!"
                     console.log((progress[2] + 1), equipment.body.length);
-                    axios.post("http://localhost:3001/prog", {
+                    axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
                         bodyProg: progress[2] + 1
                       }).then( res => {
                         console.log(res)
@@ -209,7 +209,7 @@ function Fight(){
                 }
                 else if(chance === 3 && !((progress[3] + 1) > equipment.arm.length)){
                     itemDropText.innerHTML = "New Item Dropped! Check Inventory!"
-                    axios.post("http://localhost:3001/prog", {
+                    axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
                         armProg: progress[3] + 1
                       }).then( res => {
                         console.log(res)
@@ -217,7 +217,7 @@ function Fight(){
                 }
                 else if(chance === 4 && !((progress[4] + 1) > equipment.leg.length)){
                     itemDropText.innerHTML = "New Item Dropped! Check Inventory!"
-                    axios.post("http://localhost:3001/prog", {
+                    axios.post("https://grand-arena-capstone.herokuapp.com/prog", {
                         legProg: progress[4] + 1
                       }).then( res => {
                         console.log(res)
