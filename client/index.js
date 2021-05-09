@@ -1,3 +1,5 @@
+const PORT = 3000;
+
 const express = require("express")
 const app = express()
 const mysql = require("mysql")
@@ -25,19 +27,19 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        path: "/",
         secure: true,
-        httpOnly: true,
         expires: 20 * 1000 * 1000
     },
 }))
 
 const db = mysql.createConnection({
-    user: "b55c893465f57d",
+    user: "ba8f46b7773227",
     host: "us-cdbr-east-03.cleardb.com",
-    password: "1363f9ee",
-    database: "heroku_5be602342cdb945",
+    password: "988fbde3",
+    database: "heroku_b070be5b6492dc5",
 });
+
+//mysql://ba8f46b7773227:988fbde3@us-cdbr-east-03.cleardb.com/heroku_b070be5b6492dc5?reconnect=true
 
 app.post("/create", (req, res) => {
     const Username = req.body.Username;
