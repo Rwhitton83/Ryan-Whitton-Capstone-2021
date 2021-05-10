@@ -2,6 +2,7 @@ const PORT = 3000;
 
 const path = require('path');
 const express = require("express")
+app.use(express.static(path.join(__dirname, 'client/build')));
 const app = express()
 const mysql = require("mysql")
 const cors = require('cors')
