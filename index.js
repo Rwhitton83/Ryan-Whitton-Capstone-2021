@@ -42,6 +42,37 @@ const db = mysql.createConnection({
     database: "heroku_b070be5b6492dc5",
 });
 
+const db_config = {
+    user: "ba8f46b7773227",
+    host: "us-cdbr-east-03.cleardb.com",
+    password: "988fbde3",
+    database: "heroku_b070be5b6492dc5",
+}
+
+var connection;
+
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
+                                                  // the old one cannot be reused.
+
+  connection.connect(function(err) {              // The server is either down
+    if(err) {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+  });                                     // process asynchronous requests in the meantime.
+                                          // If you're also serving http, display a 503 error.
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+    } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
+  });
+}
+
+handleDisconnect();
 app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
