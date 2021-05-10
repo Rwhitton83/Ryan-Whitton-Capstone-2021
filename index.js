@@ -40,8 +40,6 @@ const db = mysql.createConnection({
     database: "heroku_b070be5b6492dc5",
 });
 
-app.use(express.static(path.join(__dirname, 'build')));
-
 app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
