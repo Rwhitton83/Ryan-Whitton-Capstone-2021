@@ -52,7 +52,7 @@ export default function TemporaryDrawer() {
             <ListItemIcon><InboxIcon /></ListItemIcon>
             <ListItemText>Inventory</ListItemText>
           </ListItem>
-          <ListItem button component="a" href="/login">
+          <ListItem button component="a" href="/loginScreen">
             <ListItemIcon><InboxIcon /></ListItemIcon>
             <ListItemText>Login</ListItemText>
           </ListItem>
