@@ -15,6 +15,8 @@ const session = require("express-session")
 var bcrypt = require('bcryptjs');
 const saltRounds = 10
 
+app.set("trust proxy", 1);
+
 app.use(express.json());
 app.use(cors({
     origin: ["http://localhost:3000"],
@@ -30,7 +32,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: true,
+        httpOnly: true,
+        secure: false,
         expires: 20 * 1000 * 1000
     },
 }))
@@ -73,6 +76,7 @@ function handleDisconnect() {
 }
 
 handleDisconnect();
+
 app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
