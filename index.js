@@ -45,10 +45,10 @@ const db_config = {
     database: "heroku_b070be5b6492dc5",
 }
 
-var connection;
+var db;
 
 function handleDisconnect() {
-  connection = mysql.createConnection(db_config); // Recreate the connection, since
+  db = mysql.createConnection(db_config); // Recreate the connection, since
                                                   // the old one cannot be reused.
 
   connection.connect(function(err) {              // The server is either down
