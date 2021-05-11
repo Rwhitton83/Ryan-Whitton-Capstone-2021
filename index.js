@@ -98,21 +98,18 @@ app.post("/create", (req, res) => {
                         }
                         else{
                             UserID = result[0].UserID;
-                            console.log(result[0])
-                            console.log(result[0].UserID)
                             console.log(UserID)
+                            db.query(
+                                "INSERT INTO userprogress (UserID, enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg) VALUES (?,0,7,100,2,1,1,1,1)", 
+                                [UserID], 
+                                (err, result) => {
+                                    if(err){
+                                        console.log(err);
+                                    }
+                                }
+                            );
                         }
                     })
-
-                    db.query(
-                        "INSERT INTO userprogress (UserID, enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg) VALUES (?,0,7,100,2,1,1,1,1)", 
-                        [UserID], 
-                        (err, result) => {
-                            if(err){
-                                console.log(err);
-                            }
-                        }
-                        );
                 }
                 
             }
