@@ -98,6 +98,7 @@ app.post("/create", (req, res) => {
                         }
                         else{
                             UserId = result;
+                            console.log(result)
                         }
                     })
 
