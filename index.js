@@ -38,13 +38,6 @@ app.use(session({
     },
 }))
 
-const db = mysql.createConnection({
-    user: "ba8f46b7773227",
-    host: "us-cdbr-east-03.cleardb.com",
-    password: "988fbde3",
-    database: "heroku_b070be5b6492dc5",
-});
-
 const db_config = {
     user: "ba8f46b7773227",
     host: "us-cdbr-east-03.cleardb.com",
