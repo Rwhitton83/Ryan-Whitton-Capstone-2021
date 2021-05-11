@@ -74,7 +74,7 @@ app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
 
-    var UserId;
+    var UserID;
 
     bcrypt.hash(Password, saltRounds, (err, hash) => {
 
@@ -97,7 +97,8 @@ app.post("/create", (req, res) => {
                             res.send({message: "Error Finding UserID"});
                         }
                         else{
-                            UserId = result[0].UserID;
+                            UserID = result[0].UserID;
+                            console.log(result[0])
                             console.log(result[0].UserID)
                             console.log(UserID)
                         }
@@ -105,7 +106,7 @@ app.post("/create", (req, res) => {
 
                     db.query(
                         "INSERT INTO userprogress (UserID, enemyPos, estusNum, currentHealth, primaryProg, headProg, bodyProg, legProg, armProg) VALUES (?,0,7,100,2,1,1,1,1)", 
-                        [UserId], 
+                        [UserID], 
                         (err, result) => {
                             if(err){
                                 console.log(err);
