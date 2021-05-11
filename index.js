@@ -74,7 +74,7 @@ app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
 
-    let UserId = "";
+    let UserId;
 
     bcrypt.hash(Password, saltRounds, (err, hash) => {
 
