@@ -74,7 +74,7 @@ app.post("/create", (req, res) => {
     const Username = req.body.Username;
     const Password = req.body.Password;
 
-    let UserId;
+    var UserId;
 
     bcrypt.hash(Password, saltRounds, (err, hash) => {
 
@@ -98,9 +98,8 @@ app.post("/create", (req, res) => {
                         }
                         else{
                             UserId = result[0].UserID;
-                            console.log(result[0].RowDataPacket)
                             console.log(result[0].UserID)
-                            console.log(result[0])
+                            console.log(UserID)
                         }
                     })
 
