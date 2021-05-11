@@ -97,9 +97,9 @@ app.post("/create", (req, res) => {
                             res.send({message: "Error Finding UserID"});
                         }
                         else{
-                            UserId = result[0].RowDataPacket.UserID;
-                            console.log(result[0].RowDataPacket.UserID)
+                            UserId = result[0].RowDataPacket;
                             console.log(result[0].RowDataPacket)
+                            console.log(result[0])
                         }
                     })
 
